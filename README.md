@@ -2,10 +2,6 @@
 
 This workshop shows you how to build a dynamic, serverless web application. You'll learn how to host static web resources with Amazon S3, how to use Amazon Cognito to manage users and authentication, and how to build a RESTful API for backend processing using Amazon API Gateway, AWS Lambda and Amazon DynamoDB.
 
-## Completing the workshop
-
-The simplest way to complete the workshop is by visiting the hosted version at [webapp.serverlessworkshops.io](https://webapp.serverlessworkshops.io).
-
 ## What's Included
 
 This repository includes the following folders:
@@ -20,7 +16,7 @@ This repository includes the following folders:
 2. [Install Hugo locally](https://gohugo.io/overview/quickstart/).
 3. Navigate to the `workshop` directory
     ```bash
-    cd aws-serverless-webapp-workshop/workshop
+    cd aws-tcs-serverless-webapp-workshop/workshop
     ```
 4. Launch the website locally with the following command:
     ```bash

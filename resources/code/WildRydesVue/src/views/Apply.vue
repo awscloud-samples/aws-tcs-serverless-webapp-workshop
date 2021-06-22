@@ -6,7 +6,7 @@
   </header>
  <section class="content">
     <div class="row column medium-10 large-7 xlarge-5">
-      <p>Wild Rydes is on the hunt for the most mythical creature of all: talented software engineers! We’re seeking a technical dream team who will help us build a future where every person has a unicorn to ryde.</p>
+      <p>Wild Rydes is on the hunt for the most mythical creature of all: talented software engineers! We’re seeking a technical dream team who will help us build a future where every person has a car to ryde.</p>
       <p>From a technical standpoint, Wild Rydes believes in a future where there are no servers to provision, manage, or scale! Interested candidates can begin following the Serverless Way by exploring the following options:</p>
       <ul>
         <li>Enter our <a href="http://awschatbot.devpost.com" target="_blank">hackathon</a></li>

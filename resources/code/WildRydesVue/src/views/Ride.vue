@@ -100,7 +100,7 @@ export default {
         enableButton(ev){
             this.disableInputBool=false
             this.map = ev
-            this.buttonText="Request Unicorn"
+            this.buttonText="Request Car"
         },
         disableButton(){
             this.disableInputBool=true

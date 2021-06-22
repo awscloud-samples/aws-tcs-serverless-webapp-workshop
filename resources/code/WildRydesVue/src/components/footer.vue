@@ -4,7 +4,7 @@
       <nav class="footer-nav">
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="unicorns.html">Meet the Unicorns</a></li>
+          <li><a href="unicorns.html">Meet the Cars</a></li>
           <li><a href="investors.html">Investors & Board of Directors</a></li>
           <li><a href="faq.html">FAQ</a></li>
           <li><a href="apply.html">Apply</a></li>

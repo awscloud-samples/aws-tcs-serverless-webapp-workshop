@@ -60,7 +60,7 @@ exports.handler = async (event, context, callback) => {
 
     const pickupLocation = requestBody.PickupLocation;
 
-    const car = findCar(pickupLocation);
+    const car = await findCar(pickupLocation);
 
     recordRide(rideId, username, car).then(() => {
         // You can use the callback function to provide a return value from your Node.js

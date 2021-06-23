@@ -4,39 +4,25 @@ const AWS = require('aws-sdk');
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 
+
 const params = {
-    TableName : 'Cars'
+  TableName : 'Cars'
 }
 
 async function listCars(){
-    try {
-      const data = await ddb.scan(params).promise()
-      return data
-    } catch (err) {
-      return err
-    }
+    console.log("Starting query to fetch cars data.")
+  try {
+    const data = await ddb.scan(params).promise()
+    console.log("Printing Data from Cars......")
+    console.log(data)
+    return data
+  } catch (err) {
+      console.log("Error occurred while retrieving cars......" + err)
+    return err
+  }
 }
 
-// Move to dynamically data retrieve
-/*
-const fleet = [
-    {
-        Name: 'Bucephalus',
-        Color: 'Golden',
-        Gender: 'Male',
-    },
-    {
-        Name: 'Shadowfax',
-        Color: 'White',
-        Gender: 'Male',
-    },
-    {
-        Name: 'Rocinante',
-        Color: 'Yellow',
-        Gender: 'Female',
-    },
-];
-*/
+
 
 exports.handler = async (event, context, callback) => {
     if (!event.requestContext.authorizer) {
@@ -60,37 +46,42 @@ exports.handler = async (event, context, callback) => {
 
     const pickupLocation = requestBody.PickupLocation;
 
-    const car = await findCar(pickupLocation);
+    try{
+        const car = await findCar(pickupLocation);
 
-    recordRide(rideId, username, car).then(() => {
-        // You can use the callback function to provide a return value from your Node.js
-        // Lambda functions. The first parameter is used for failed invocations. The
-        // second parameter specifies the result data of the invocation.
-
-        // Because this Lambda function is called by an API Gateway proxy integration
-        // the result object must use the following structure.
-        callback(null, {
-            statusCode: 201,
-            body: JSON.stringify({
-                RideId: rideId,
-                Unicorn: car,
-                UnicornName: car.carName,
-                Eta: '30 seconds',
-                Rider: username,
-            }),
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-            },
+        recordRide(rideId, username, car).then(() => {
+            // You can use the callback function to provide a return value from your Node.js
+            // Lambda functions. The first parameter is used for failed invocations. The
+            // second parameter specifies the result data of the invocation.
+    
+            // Because this Lambda function is called by an API Gateway proxy integration
+            // the result object must use the following structure.
+            callback(null, {
+                statusCode: 201,
+                body: JSON.stringify({
+                    RideId: rideId,
+                    Unicorn: car,
+                    UnicornName: car.carName,
+                    Eta: '30 seconds',
+                    Rider: username,
+                }),
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                },
+            });
+        }).catch((err) => {
+            console.error(err);
+    
+            // If there is an error during processing, catch it and return
+            // from the Lambda function successfully. Specify a 500 HTTP status
+            // code and provide an error message in the body. This will provide a
+            // more meaningful error response to the end client.
+            errorResponse(err.message, context.awsRequestId, callback)
         });
-    }).catch((err) => {
-        console.error(err);
-
-        // If there is an error during processing, catch it and return
-        // from the Lambda function successfully. Specify a 500 HTTP status
-        // code and provide an error message in the body. This will provide a
-        // more meaningful error response to the end client.
-        errorResponse(err.message, context.awsRequestId, callback)
-    });
+   } catch (err) {
+     return { error: err }
+   }
+    
 };
 
 // This is where you would implement logic to find the optimal unicorn for
@@ -99,17 +90,17 @@ exports.handler = async (event, context, callback) => {
 async function findCar(pickupLocation) {
     console.log('Finding car for ', pickupLocation.Latitude, ', ', pickupLocation.Longitude);
     const cars = await listCars();
-    return cars[Math.floor(Math.random() * fleet.length)];
+    return cars[Math.floor(Math.random() * cars.length)];
 }
 
-function recordRide(rideId, username, unicorn) {
+function recordRide(rideId, username, car) {
     return ddb.put({
         TableName: 'Rides',
         Item: {
             RideId: rideId,
             User: username,
-            Unicorn: unicorn,
-            UnicornName: unicorn.carName,
+            Unicorn: car,
+            UnicornName: car.carName,
             RequestTime: new Date().toISOString(),
         },
     }).promise();

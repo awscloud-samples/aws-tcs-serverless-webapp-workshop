@@ -4,7 +4,21 @@ const AWS = require('aws-sdk');
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 
+const params = {
+    TableName : 'Cars'
+}
+
+async function listCars(){
+    try {
+      const data = await ddb.scan(params).promise()
+      return data
+    } catch (err) {
+      return err
+    }
+}
+
 // Move to dynamically data retrieve
+/*
 const fleet = [
     {
         Name: 'Bucephalus',
@@ -22,8 +36,9 @@ const fleet = [
         Gender: 'Female',
     },
 ];
+*/
 
-exports.handler = (event, context, callback) => {
+exports.handler = async (event, context, callback) => {
     if (!event.requestContext.authorizer) {
       errorResponse('Authorization not configured', context.awsRequestId, callback);
       return;
@@ -45,9 +60,9 @@ exports.handler = (event, context, callback) => {
 
     const pickupLocation = requestBody.PickupLocation;
 
-    const unicorn = findUnicorn(pickupLocation);
+    const car = findCar(pickupLocation);
 
-    recordRide(rideId, username, unicorn).then(() => {
+    recordRide(rideId, username, car).then(() => {
         // You can use the callback function to provide a return value from your Node.js
         // Lambda functions. The first parameter is used for failed invocations. The
         // second parameter specifies the result data of the invocation.
@@ -59,7 +74,7 @@ exports.handler = (event, context, callback) => {
             body: JSON.stringify({
                 RideId: rideId,
                 Unicorn: unicorn,
-                UnicornName: unicorn.Name,
+                UnicornName: unicorn.carName,
                 Eta: '30 seconds',
                 Rider: username,
             }),
@@ -81,9 +96,10 @@ exports.handler = (event, context, callback) => {
 // This is where you would implement logic to find the optimal unicorn for
 // this ride (possibly invoking another Lambda function as a microservice.)
 // For simplicity, we'll just pick a unicorn at random.
-function findUnicorn(pickupLocation) {
-    console.log('Finding unicorn for ', pickupLocation.Latitude, ', ', pickupLocation.Longitude);
-    return fleet[Math.floor(Math.random() * fleet.length)];
+async function findCar(pickupLocation) {
+    console.log('Finding car for ', pickupLocation.Latitude, ', ', pickupLocation.Longitude);
+    const cars = await listCars();
+    return cars[Math.floor(Math.random() * fleet.length)];
 }
 
 function recordRide(rideId, username, unicorn) {

@@ -7,6 +7,8 @@ const AWS = require('aws-sdk');
 
 const ddb = new AWS.DynamoDB.DocumentClient();
 
+
+// Move to dynamically data retrieve
 const fleet = [
     {
         Name: 'Bucephalus',

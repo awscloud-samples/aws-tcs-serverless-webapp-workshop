@@ -176,7 +176,7 @@ var config = require('../config.js')
                         .catch(function (error) {
                             // handle error
                             console.error('Error requesting ride: ', error);
-                            alert('An error occured when requesting your unicorn:\n' + error);
+                            alert('An error occured when requesting your car:\n' + error);
                         })
 
                 },

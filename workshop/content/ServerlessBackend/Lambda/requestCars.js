@@ -73,8 +73,8 @@ exports.handler = async (event, context, callback) => {
             statusCode: 201,
             body: JSON.stringify({
                 RideId: rideId,
-                Unicorn: unicorn,
-                UnicornName: unicorn.carName,
+                Unicorn: car,
+                UnicornName: car.carName,
                 Eta: '30 seconds',
                 Rider: username,
             }),
@@ -109,7 +109,7 @@ function recordRide(rideId, username, unicorn) {
             RideId: rideId,
             User: username,
             Unicorn: unicorn,
-            UnicornName: unicorn.Name,
+            UnicornName: unicorn.carName,
             RequestTime: new Date().toISOString(),
         },
     }).promise();

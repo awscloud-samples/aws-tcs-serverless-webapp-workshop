@@ -1,8 +1,8 @@
 node_modules
 workshop/public
 public/_gen
-.vscode
 packaged.yaml
 resources/_gen
 .DS_Store
+.vscode
 

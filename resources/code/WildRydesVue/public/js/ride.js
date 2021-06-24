@@ -39,7 +39,7 @@ WildRydes.map = WildRydes.map || {};
     }
 
     function completeRequest(result) {
-        var unicorn;
+        var car;
         var pronoun;
         console.log('Response received from API: ', result);
         car = result.Car;
@@ -77,7 +77,7 @@ WildRydes.map = WildRydes.map || {};
 
     function handlePickupChanged() {
         var requestButton = $('#request');
-        requestButton.text('Request Unicorn');
+        requestButton.text('Request Car');
         requestButton.prop('disabled', false);
     }
 

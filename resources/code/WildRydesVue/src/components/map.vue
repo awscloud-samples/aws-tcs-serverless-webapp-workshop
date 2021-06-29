@@ -182,11 +182,11 @@ var config = require('../config.js')
                 },
                 completeRequest: function (unicornResponse) {
                     console.log('Response received from API: ', unicornResponse);
-                    var unicorn;
-                    var pronoun;
-                    unicorn = unicornResponse.Unicorn;
-                    pronoun = unicorn.Gender === 'Male' ? 'his' : 'her';
-                    this.displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' unicorn, is on ' + pronoun + ' way.');
+                    var car;
+                    //var pronoun;
+                    car = unicornResponse.Car;
+                    pronoun = 'it's';
+                    this.displayUpdate(car.carName + ', your ' + car.color + ' car, is on ' + pronoun + ' way.');
                     this.animateArrival(function animateCallback() {
                         self.displayUpdate(unicorn.Name + ' has arrived. Giddy up!');
                         //self.webmap.unsetLocation();

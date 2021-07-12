@@ -185,7 +185,7 @@ var config = require('../config.js')
                     var car;
                     //var pronoun;
                     car = unicornResponse.Car;
-                    pronoun = 'it's';
+                    var pronoun = "its";
                     this.displayUpdate(car.carName + ', your ' + car.color + ' car, is on ' + pronoun + ' way.');
                     this.animateArrival(function animateCallback() {
                         self.displayUpdate(unicorn.Name + ' has arrived. Giddy up!');
